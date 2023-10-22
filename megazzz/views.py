@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.template.loader import render_to_string
 from django.shortcuts import render
+from django.template.defaultfilters import slugify
 
 menu = ["О сайте", "Добавить", "Обратная связь", "Войти"]
 
@@ -10,11 +11,12 @@ def index(request):
     #t = render_to_string('megazzz/index.html')
     #return HttpResponse(t)
     data = {
-        'title': 'Главная станица',
+        'title': 'Главная страница',
         'menu': menu,
         'float': 25.56,
         'lst': [1, 2, 'abf', True],
         'set': {1, 2, 3, 2, 5},
+        'url': slugify('The main page!')
     }
     return render(request, 'megazzz/index.html', context=data)
 
