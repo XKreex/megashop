@@ -7,16 +7,17 @@ from django.template.defaultfilters import slugify
 
 menu = ["О сайте", "Добавить", "Обратная связь", "Войти"]
 
+data_db = [
+    {'id': 1, 'title': 'i3-10300', 'content': 'processor 10 pokoleniya', 'in_stock': True},
+    {'id': 2, 'title': 'i5-12500', 'content': 'processor 12 pokoleniya', 'in_stock': False},
+    {'id': 3, 'title': 'i7-13700', 'content': 'processor 13 pokoleniya', 'in_stock': True},
+]
+
 def index(request):
-    #t = render_to_string('megazzz/index.html')
-    #return HttpResponse(t)
     data = {
         'title': 'Главная страница',
         'menu': menu,
-        'float': 25.56,
-        'lst': [1, 2, 'abf', True],
-        'set': {1, 2, 3, 2, 5},
-        'url': slugify('The main page!')
+        'posts': data_db,
     }
     return render(request, 'megazzz/index.html', context=data)
 
