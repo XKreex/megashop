@@ -5,7 +5,12 @@ from django.template.loader import render_to_string
 from django.shortcuts import render
 from django.template.defaultfilters import slugify
 
-menu = ["О сайте", "Добавить", "Обратная связь", "Войти"]
+
+menu = [{'title': "О сайте", 'url_name': 'about'},
+        {'title': "Добавить статью", 'url_name': 'add_page'},
+        {'title': "Обратная связь", 'url_name': 'contact'},
+        {'title': "Войти", 'url_name': 'login'}
+        ]
 
 data_db = [
     {'id': 1, 'title': 'i3-10300', 'content': 'processor 10 pokoleniya', 'in_stock': True},
@@ -24,29 +29,23 @@ def index(request):
 def products(request):
     return render(request, 'megazzz/products.html', {'title': 'Каталог магазина'})
 
-def categories(request, cat_id):
-    return HttpResponse(f"<h1>ПРОЦЕССОРЫ</h1><p>id: {cat_id}</p>")
 
-def categories_slug(request, cat_slug):
-    if request.GET:
-        print(request.GET)
-    return HttpResponse(f"<h1>ПРОЦЕССОРЫ</h1><p>slug: {cat_slug}</p>")
+def show_post(request, post_id):
+    return HttpResponse(f'Отображение описания с id = {post_id}')
 
-#def archive(request, year):
-#    if year > 2023:
-#        uri = reverse('cats', args=('sports',))
-#        return redirect(uri)
-#    return HttpResponse(f"<h1>Поколение процессоров</h1><p>{year}</p>")
+def about(request):
+    return render(request, 'megazzz/about.html', {'title': 'О сайте', 'menu': menu})
 
-def radio(request):
-    return HttpResponse(f"<h1>RadioTapok</h1>")
+def addpage(request):
+    return HttpResponse(f'Добавление статьи')
 
-def archive(request, year):
-    if year > 2023:
-        uri = reverse('single', kwargs={'a1': 'music', 'a2': 'radio'})
-        return redirect(uri)
-    return HttpResponse(f"<h1>Поколение процессоров</h1><p>{year}</p>")
+def contact(request):
+    return HttpResponse(f'Обратная связь')
+
+def login(request):
+    return HttpResponse(f'Авторизация')
 
 def page_not_found(request, exception):
     return HttpResponseNotFound ('<h1>СТАНИЦА НЕ НАЙДЕНА</h1>')
+
 

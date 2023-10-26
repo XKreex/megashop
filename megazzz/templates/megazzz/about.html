@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,24 +18,6 @@
 </ul>
 
 
-<p>{{ title }}</p>
-
-<ul>
-    {%  for p in posts %}
-        {% if p.in_stock %}
-        <li>
-            <h2>{{ p.title }}</h2>
-            <p>{{ p.content }}</p>
-
-            <p><a href="{% url 'post' p.id %}">Читать пост</a></p>
-
-            {% if not forloop.last %}
-            <hr>
-            {% endif %}
-        </li>
-        {% endif %}
-    {% endfor %}
-</ul>
 
 </body>
 
