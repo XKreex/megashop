@@ -1,28 +1,17 @@
 {% extends 'base.html' %}
+
 {% block content %}
-
-<p>{{ title }}</p>
-
-    <! -- only запрещает передачу переменных, only with ограничевает передачу только title2 -->
-{% include 'megazzz/includes/nav.html' only with title2='Hello' %}
-
-<ul>
-    {%  for p in posts %}
-        {% if p.in_stock %}
-        <li>
-            <h2>{{ p.title }}</h2>
-            <p>{{ p.content }}</p>
-
-            <p><a href="{% url 'post' p.id %}">Читать пост</a></p>
-
-            {% if not forloop.last %}
-            <hr>
-            {% endif %}
-        </li>
-        {% endif %}
-    {% endfor %}
+<ul class="list-articles">
+	{% for p in posts %}
+	{% if p.in_stock %}
+			<li><h2>{{p.title}}</h2>
+    {% autoescape off %} <!-- отключить экранирование для тегов -->
+	{{p.content|linebreaks|truncatewords:15}} <!-- Ограничить вывод 10 словами и выводить с переносом строк -->
+    {% endautoescape %}
+			<div class="clear"></div>
+			<p class="link-read-post"><a href="{% url 'post' p.id %}">Подробнее</a></p>
+			</li>
+	{% endif %}
+	{% endfor %}
 </ul>
-
-{% include 'megazzz/includes/nav.html' %}
-
 {% endblock %}
