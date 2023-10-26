@@ -1,25 +1,10 @@
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-    <title>{{ title }}</title>
-
-</head>
-
-<body>
-<ul>
-    <li><a href="{% url 'home' %}">Главная страница</a></li>
-    {% for m in menu %}
-        {% if not forloop.last %}<li>{% else %}<li class="last">{% endif %}
-            <a href="{% url m.url_name %}">{{ m.title }}</a>
-        </li>
-    {% endfor %}
-</ul>
-
+{% extends 'base.html' %}
+{% block content %}
 
 <p>{{ title }}</p>
+
+    <! -- only запрещает передачу переменных, only with ограничевает передачу только title2 -->
+{% include 'megazzz/includes/nav.html' only with title2='Hello' %}
 
 <ul>
     {%  for p in posts %}
@@ -38,6 +23,6 @@
     {% endfor %}
 </ul>
 
-</body>
+{% include 'megazzz/includes/nav.html' %}
 
-</html>
+{% endblock %}
