@@ -3,15 +3,18 @@
 {% block content %}
 <ul class="list-articles">
 	{% for p in posts %}
-	{% if p.in_stock %}
-			<li><h2>{{p.title}}</h2>
+        <li><div class="article-panel">
+            <p class="first">Категория: {{ p.cat.name }}</p>
+            <p class="last">Дата: {{ p.time_update|date:"d-m-Y H:i:s" }}</p>
+        </div>
+
+                <h2>{{p.title}}</h2>
     {% autoescape off %} <!-- отключить экранирование для тегов -->
 	{{p.content|linebreaks|truncatewords:15}} <!-- Ограничить вывод 10 словами и выводить с переносом строк -->
     {% endautoescape %}
 			<div class="clear"></div>
-			<p class="link-read-post"><a href="{% url 'post' p.id %}">Подробнее</a></p>
+			<p class="link-read-post"><a href="{{ p.get_absolute_url }}">Подробнее</a></p>
 			</li>
-	{% endif %}
 	{% endfor %}
 </ul>
 {% endblock %}
